@@ -31,7 +31,7 @@ public class UserService {
 		if (DataTools.isEmpty(user.getAccount())) {
 			return Error.ERROR_ACCOUNT_EMPTY;
 		}
-		user.setAccount(user.getAccount().trim());
+		user.setAccount("1" + user.getAccount().trim());
 		if (!RegexTools.isMobile(user.getAccount())) {
 			return Error.ERROR_ACCOUNT_PATTERN;
 		}
@@ -123,7 +123,7 @@ public class UserService {
 	 */
 	public User getByToken(String token) {
 		if (DataTools.isEmpty(token)) {
-			throw new BusException(Error.ERROR_USER_NOT_EXISTS);
+			throw new BusException(Error.ERROR_TOKEN);
 		}
 		UserExample example = new UserExample();
 		example.or().andTokenEqualTo(token);

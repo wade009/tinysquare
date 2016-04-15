@@ -15,7 +15,7 @@
 	<context:component-scan base-package="com.tinysquare.*" />
 
 	<mvc:annotation-driven>
-		<!-- 
+		
 		<mvc:message-converters register-defaults="true">
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="objectMapper">
@@ -28,11 +28,15 @@
 			</bean>
 		</mvc:message-converters>
 		
-		 -->
 	</mvc:annotation-driven>
 
 	<mvc:interceptors>
 		<bean class="com.tinysquare.interceptor.RequestInterceptor" />
 	</mvc:interceptors>
+	
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
 	
 </beans>

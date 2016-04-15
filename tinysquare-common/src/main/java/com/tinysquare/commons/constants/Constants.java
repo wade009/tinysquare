@@ -7,6 +7,15 @@ public class Constants {
 	public interface App {
 
 		public final static String VERSION = "1.0.0";
+
+		public final static int APP_STATUS_NONE = 0;
+
+		public final static int APP_STATUS_UPDATE = 1;
+
+		public final static int APP_STATUS_MUST_UPDATE = 2;
+		
+		public final static String IMG_URL = "http://source.tiny-square.com/";
+		
 	}
 
 	public interface User {
@@ -65,8 +74,20 @@ public class Constants {
 
 	public interface Coupon {
 
-		public final static byte UNUSER = 0;
+		public final static byte UNUSE = 0;
 
-		public final static byte USERD = 1;
+		public final static byte USED = 1;
+	}
+
+	public interface Message {
+
+		public final static byte UNREAD = 0;
+
+		public final static byte READ = 1;
+	}
+
+	public interface News {
+		
+		public final static String SHARE_URL = "http://www.tinysquareapi.com/tinysquare-api/newsFront/detail/";
 	}
 }

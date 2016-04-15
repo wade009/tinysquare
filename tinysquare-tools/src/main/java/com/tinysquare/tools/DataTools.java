@@ -5,7 +5,9 @@ import java.text.DecimalFormat;
 
 public class DataTools {
 
-	public final static DecimalFormat ROUND_FORMAT = new DecimalFormat("0.00");
+	public final static DecimalFormat ROUND_FLOAT_FORMAT = new DecimalFormat("0.0");
+
+	public final static DecimalFormat ROUND_DOUBLE_FORMAT = new DecimalFormat("0.00");
 
 	/**
 	 * 判断字符串是否为空
@@ -54,7 +56,7 @@ public class DataTools {
 	 */
 	public static String format(BigDecimal value) {
 		try {
-			return ROUND_FORMAT.format(value);
+			return ROUND_DOUBLE_FORMAT.format(value);
 		} catch (Exception e) {
 		}
 		return null;
@@ -68,7 +70,7 @@ public class DataTools {
 	 */
 	public static Double format2Double(BigDecimal value) {
 		try {
-			return Double.valueOf(ROUND_FORMAT.format(value));
+			return Double.valueOf(ROUND_DOUBLE_FORMAT.format(value));
 		} catch (Exception e) {
 		}
 		return null;
@@ -82,7 +84,7 @@ public class DataTools {
 	 */
 	public static String format(Double value) {
 		try {
-			return ROUND_FORMAT.format(value);
+			return ROUND_DOUBLE_FORMAT.format(value);
 		} catch (Exception e) {
 		}
 		return null;
@@ -96,7 +98,37 @@ public class DataTools {
 	 */
 	public static Double format2Double(Double value) {
 		try {
-			return Double.valueOf(ROUND_FORMAT.format(value));
+			return Double.valueOf(ROUND_DOUBLE_FORMAT.format(value));
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	/**
+	 * 格式化BigDecimal
+	 * 
+	 * @param value
+	 * @param decimalFormat
+	 * @return
+	 */
+	public static Double format2Double(BigDecimal value, DecimalFormat decimalFormat) {
+		try {
+			return Double.valueOf(decimalFormat.format(value));
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	/**
+	 * 格式化Double
+	 * 
+	 * @param value
+	 * @param decimalFormat
+	 * @return
+	 */
+	public static Double format2Double(Double value, DecimalFormat decimalFormat) {
+		try {
+			return Double.valueOf(decimalFormat.format(value));
 		} catch (Exception e) {
 		}
 		return null;
@@ -144,6 +176,37 @@ public class DataTools {
 	 */
 	public static Double divide(Double value1, Double value2) {
 		return new BigDecimal(Double.toString(value1)).divide(new BigDecimal(Double.toString(value2))).doubleValue();
+	}
+
+	/**
+	 * 获取距离描述
+	 * 
+	 * @param distance
+	 * @return
+	 */
+	public static String getDistance(BigDecimal distance) {
+		double value = divide(distance == null ? 0d : distance.doubleValue(), 1000d);
+		if (value > 999) {
+			return ">999km";
+		}
+		if (value < 0.5) {
+			return "<0.5km";
+		}
+		return format2Double(value, ROUND_FLOAT_FORMAT) + "km";
+	}
+
+	/**
+	 * 设置图片
+	 * 
+	 * @param prefix
+	 * @param url
+	 * @return
+	 */
+	public static String setImg(String prefix, String url) {
+		if (!DataTools.isEmpty(url) && url.indexOf("http:") == -1) {
+			return prefix + url;
+		}
+		return url;
 	}
 
 }

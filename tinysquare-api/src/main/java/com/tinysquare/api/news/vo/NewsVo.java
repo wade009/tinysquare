@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.tinysquare.commons.constants.Constants;
+import com.tinysquare.commons.vo.ShareVo;
+import com.tinysquare.tools.DataTools;
 
 public class NewsVo implements Serializable {
 
@@ -12,6 +14,10 @@ public class NewsVo implements Serializable {
 	private Long objId;
 
 	private String shopName;
+	
+	private String shopTel;
+	
+	private String shopAddress;
 
 	private String content;
 
@@ -29,6 +35,8 @@ public class NewsVo implements Serializable {
 
 	private Byte canFavorite = Constants.Boolean.FALSE;
 
+	private ShareVo share;
+
 	private List<NewsImgVo> imgs;
 
 	public NewsVo() {
@@ -42,7 +50,7 @@ public class NewsVo implements Serializable {
 		this.content = content;
 		this.shopId = shopId;
 		this.entrydate = entrydate;
-		this.avator = avator;
+		this.avator = DataTools.setImg(Constants.App.IMG_URL, avator);
 		this.favoriteCount = favoriteCount;
 		this.distance = distance;
 	}
@@ -54,7 +62,7 @@ public class NewsVo implements Serializable {
 		this.content = content;
 		this.shopId = shopId;
 		this.entrydate = entrydate;
-		this.avator = avator;
+		this.avator = DataTools.setImg(Constants.App.IMG_URL, avator);
 		this.favoriteCount = favoriteCount;
 		this.distance = distance;
 		this.status = status;
@@ -74,6 +82,22 @@ public class NewsVo implements Serializable {
 
 	public void setShopName(String shopName) {
 		this.shopName = shopName;
+	}
+
+	public String getShopTel() {
+		return shopTel;
+	}
+
+	public void setShopTel(String shopTel) {
+		this.shopTel = shopTel;
+	}
+
+	public String getShopAddress() {
+		return shopAddress;
+	}
+
+	public void setShopAddress(String shopAddress) {
+		this.shopAddress = shopAddress;
 	}
 
 	public String getContent() {
@@ -140,12 +164,28 @@ public class NewsVo implements Serializable {
 		this.canFavorite = canFavorite;
 	}
 
+	public ShareVo getShare() {
+		return share;
+	}
+
+	public void setShare(ShareVo share) {
+		this.share = share;
+	}
+
 	public List<NewsImgVo> getImgs() {
 		return imgs;
 	}
 
 	public void setImgs(List<NewsImgVo> imgs) {
 		this.imgs = imgs;
+	}
+
+	public void setNewShare() {
+		String brief = this.content;
+		if (brief != null && brief.length() > 30) {
+			brief = brief.substring(0, 30) + "...";
+		}
+		this.setShare(new ShareVo(this.avator, this.shopName, brief, Constants.News.SHARE_URL + this.objId));
 	}
 
 }
